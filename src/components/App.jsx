@@ -12,7 +12,7 @@ const App = () => {
   const[postsperpage,setpostsperpage]=useState(5);
   const[allcategories,setallcategories]=useState([]);
 
-  
+  //fetch  data in post 
   useEffect(() => {
     const getPosts = async () => {
       setloading(true);
@@ -26,7 +26,7 @@ const App = () => {
     
 
     getPosts()}, []);
-  
+  //get data from mock APi
   const fetchPosts = async () => {
     const res = await fetch('api/posts');
     const data = await res.json();
@@ -53,7 +53,7 @@ const App = () => {
      setallcategories({allcategories:backcategories})
     return data.posts
   }
- 
+ //search  something like title or name
   const onChange=async(e)=>
   {
     const data=posts;
@@ -65,11 +65,9 @@ const App = () => {
  
     }
   }
+  //multiselect 
  const onChangeSelect=async(e)=>
  {
-   console.log(e)
-   
-   
    var filterPosts=[];
    if( e.length == 0 ) {
      filterPosts = backUpPosts
@@ -113,11 +111,9 @@ const App = () => {
           style={{ flex: '10',width: '100%', padding: '5px' }}
           placeholder="search ..."
           onChange={onChange}/>
-       
           <MultiSelect  onChange={onChangeSelect}  allcategories={allcategories.allcategories} />
-       
-        <Posts onChange={onChange} loading={loading} posts={currentPosts}/>
-        <Pagination 
+         <Posts onChange={onChange} loading={loading} posts={currentPosts}/>
+         <Pagination 
         postsPerPage={postsperpage}  totalPosts={posts.length}
         paginate={paginate} />
 
